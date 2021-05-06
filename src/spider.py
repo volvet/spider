@@ -25,8 +25,8 @@ if __name__ == '__main__':
   parser = argparse.ArgumentParser()
   parser.add_argument('--src', type=str, default=os.path.join(cur_path, '..', 'models', 'mobilenetv2-7.onnx'))
   parser.add_argument('--dst', type=str, default='')
-  parser.add_argument('--src_format', type=int, default=0)
-  parser.add_argument('--dst_format', type=int, default=0)
+  parser.add_argument('--src_format', type=int, default=1)
+  parser.add_argument('--dst_format', type=int, default=1)
   parser.add_argument('--op', type=str, default='cvt')
   
   config = parser.parse_args()

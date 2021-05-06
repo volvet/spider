@@ -5,16 +5,22 @@ Created on Sat May  1 19:38:22 2021
 @author: Administrator
 """
 
-from enum import Enum
+from enum import Enum, auto
 
 class SpiderFormat(Enum):
-  ONNX = 0
-  COREML = 1
-  TNN = 2
-  MNN = 3
+  ONNX = auto()
+  TORCH = auto()
+  TENSORFLOW = auto()
+  CAFFE = auto()
+  COREML = auto()
+  TNN = auto()
+  MNN = auto()
  
 if __name__ == '__main__':
-  print(SpiderFormat.ONNX)
-  print(SpiderFormat.COREML)
+  print(SpiderFormat(1))
   print(SpiderFormat(2))
   print(SpiderFormat(3))
+  print(SpiderFormat(4))
+  print(SpiderFormat(5))
+  print(SpiderFormat(6))
+  print(SpiderFormat(7))

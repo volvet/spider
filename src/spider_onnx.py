@@ -17,9 +17,9 @@ class SpiderOnnx(SpiderBase):
   
   def convert(self, config):
     print('ONNX Convert')
-    module = self.check(config.src)
+    module = self.load(config.src)
     if module is None:
-      print('This is not valid onnx model: ', config.src)
+      print('This is not a valid onnx model: ', config.src)
       return
     else:
       print('Checking model: ', config.src, ', done')
@@ -28,16 +28,15 @@ class SpiderOnnx(SpiderBase):
    
   def summary(self, config):
     print('ONNX Summary')
-    module = self.check(config.src)
+    module = self.load(config.src)
     if module is None:
-      print('This is not valid onnx modelP: ', config.src)
+      print('This is not a valid onnx model: ', config.src)
       return
     self.summary_internal(module)
     
 
-  def check(self, src):
+  def load(self, src):
     module = onnx.load(src)
-    print(module.graph)
     try:
       onnx.checker.check_model(module)
     except onnx.checker.ValidationError as e:
