@@ -13,11 +13,11 @@ class SpiderBase(abc.ABC):
   @abc.abstractmethod
   def convert(self, config):
     pass
-  
+
   @abc.abstractmethod
   def summary(self, config):
     pass
-  
-  
+
+
 if __name__ == '__main__':
   print('SpiderBase')
