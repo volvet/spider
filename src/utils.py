@@ -15,7 +15,7 @@ class SpiderFormat(Enum):
   COREML = auto()
   TNN = auto()
   MNN = auto()
- 
+
 if __name__ == '__main__':
   print(SpiderFormat(1))
   print(SpiderFormat(2))

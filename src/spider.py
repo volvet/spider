@@ -28,7 +28,7 @@ if __name__ == '__main__':
   parser.add_argument('--src_format', type=int, default=1)
   parser.add_argument('--dst_format', type=int, default=1)
   parser.add_argument('--op', type=str, default='cvt')
-  
+
   config = parser.parse_args()
   print(config)
   main(config)
