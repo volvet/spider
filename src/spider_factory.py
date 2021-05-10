@@ -14,3 +14,5 @@ class SpiderFactory:
   def create(self, format):
     if format == SpiderFormat.ONNX:
       return SpiderOnnx()
+    else:
+      return None
