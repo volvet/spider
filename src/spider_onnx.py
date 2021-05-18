@@ -15,6 +15,7 @@ from utils import SpiderFormat
 import shutil
 import numpy as np
 
+
 def summary_onnx_valueinfoproto(value):
   format_str = '{:>20} {:>30}'
   dims = ''
@@ -26,10 +27,11 @@ def summary_onnx_valueinfoproto(value):
     dims += 'x'.join(attend)
   return format_str.format(value.name, dims)
 
+
 def summary_onnx_nodeproto(node, tensors):
   format_str = '{:>20} {:>20} {:>30}'
   dims = ''
-  #TODO support other op_type
+  # TODO support other op_type
   if node.op_type == 'Conv': # conv node has 3 inputs, the 2nd is weights, 3rd is bias
     if node.input[1] in tensors:
       dims = 'x'.join([str(x) for x in tensors[node.input[1]]])
@@ -64,11 +66,11 @@ class SpiderOnnx(SpiderBase):
         self.convert_to_tnn(module, config)
       elif SpiderFormat(config.dst_format) == SpiderFormat.MNN:
         self.convert_to_mnn(module, config)
-    except:
+    except(Exception):
       raise
     else:
       print('ONNX converting to:', config.dst,
-        '. Target format:', SpiderFormat(config.dst_format).name, '. Done')
+            '. Target format:', SpiderFormat(config.dst_format).name, '. Done')
 
   def summary(self, config):
     print('ONNX Summary')
@@ -97,10 +99,10 @@ class SpiderOnnx(SpiderBase):
 
     tensors = {}
     for tensor in module.graph.initializer:
-      if not tensor.name is None and tensor.name not in tensors:
+      if tensor.name is not None and tensor.name not in tensors:
         tensors[tensor.name] = tensor.dims
     for tensor in module.graph.sparse_initializer:
-      if not tensor.name is None and tensor.name not in tensors:
+      if tensor.name is not None and tensor.name not in tensors:
         tensors[tensor.name] = tensor.dims
     for op_id, op in enumerate(module.graph.node):
       summary_string += summary_onnx_nodeproto(op, tensors) + '\n'
