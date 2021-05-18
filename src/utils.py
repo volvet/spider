@@ -7,6 +7,7 @@ Created on Sat May  1 19:38:22 2021
 
 from enum import Enum, auto
 
+
 class SpiderFormat(Enum):
   ONNX = auto()
   TORCH = auto()
@@ -15,6 +16,7 @@ class SpiderFormat(Enum):
   COREML = auto()
   TNN = auto()
   MNN = auto()
+
 
 if __name__ == '__main__':
   print(SpiderFormat(1))

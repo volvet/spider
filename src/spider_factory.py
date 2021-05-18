@@ -17,4 +17,3 @@ class SpiderFactory:
       return SpiderOnnx()
     else:
       return None
-
