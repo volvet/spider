@@ -71,7 +71,25 @@ class SpiderOnnx(SpiderBase):
     if module is None:
       print('This is not a valid onnx model:', config.src)
       return
-    self.summary_internal(module)
+
+    print('module:')
+    print('ir_version:', module.ir_version)
+    print('opset_import:', module.opset_import)
+    graph = module.graph
+    print('graph:')
+    print('name:', graph.name)
+    print('initializer len:', len(graph.initializer))
+    for tensor in graph.initializer:
+      print('name:', tensor.name, 'dims: ', tensor.dims)
+
+    print('input len:', len(graph.input))
+    for value_info in graph.input:
+      print('name:', value_info.name, 'type:', value_info.type, 'doc:', value_info.doc_string)
+      type = value_info.type
+      print(type.sequence_type)
+
+
+    #self.summary_internal(module)
 
   def load(self, src):
     module = onnx.load(src)
