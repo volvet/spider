@@ -6,8 +6,6 @@ Created on Sun May  2 20:54:30 2021
 """
 
 from __future__ import print_function
-import sys
-import os
 import onnx
 import coremltools.converters.onnx as coreml
 from spider_base import SpiderBase
@@ -32,7 +30,7 @@ def summary_onnx_nodeproto(node, tensors):
   format_str = '{:>20} {:>20} {:>30}'
   dims = ''
   # TODO support other op_type
-  if node.op_type == 'Conv': # conv node has 3 inputs, the 2nd is weights, 3rd is bias
+  if node.op_type == 'Conv':  # conv node has 3 inputs, the 2nd is weights, 3rd is bias
     if node.input[1] in tensors:
       dims = 'x'.join([str(x) for x in tensors[node.input[1]]])
   return format_str.format(node.name, node.op_type, dims)
@@ -50,22 +48,17 @@ class SpiderOnnx(SpiderBase):
       return
     else:
       print('Checking model:', config.src, '. Done')
-
+    converts = {
+      SpiderFormat.ONNX: self.convert_to_onnx,
+      SpiderFormat.TORCH: self.convert_to_torch,
+      SpiderFormat.TENSORFLOW: self.convert_to_tensorflow,
+      SpiderFormat.CAFFE: self.convert_to_caffe,
+      SpiderFormat.COREML: self.convert_to_coreml,
+      SpiderFormat.TNN: self.convert_to_tnn,
+      SpiderFormat.MNN: self.convert_to_mnn,
+    }
     try:
-      if SpiderFormat(config.dst_format) == SpiderFormat.ONNX:
-        self.convert_to_onnx(module, config)
-      elif SpiderFormat(config.dst_format) == SpiderFormat.TORCH:
-        self.convert_to_torch(module, config)
-      elif SpiderFormat(config.dst_format) == SpiderFormat.TENSORFLOW:
-        self.convert_to_tensorflow(module, config)
-      elif SpiderFormat(config.dst_format) == SpiderFormat.CAFFE:
-        self.convert_to_caffe(module, config)
-      elif SpiderFormat(config.dst_format) == SpiderFormat.COREML:
-        self.convert_to_coreml(module, config)
-      elif SpiderFormat(config.dst_format) == SpiderFormat.TNN:
-        self.convert_to_tnn(module, config)
-      elif SpiderFormat(config.dst_format) == SpiderFormat.MNN:
-        self.convert_to_mnn(module, config)
+      converts[SpiderFormat(config.dst_format)](module, config)
     except(Exception):
       raise
     else:

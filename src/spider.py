@@ -7,9 +7,8 @@ Created on Sat May  1 18:26:16 2021
 
 import os
 import argparse
-from utils import *
-from spider_base import *
-from spider_factory import *
+from utils import SpiderFormat
+from spider_factory import SpiderFactory
 
 
 def main(config):

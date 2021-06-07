@@ -6,7 +6,6 @@ Created on Sun May  2 20:55:32 2021
 """
 
 import abc
-from utils import SpiderFormat
 
 
 class SpiderBase(abc.ABC):
