@@ -84,11 +84,10 @@ class SpiderOnnx(SpiderBase):
 
     print('input len:', len(graph.input))
     for value_info in graph.input:
-      print('name:', value_info.name, 'type:', value_info.type, 'doc:', value_info.doc_string)
+      #print('name:', value_info.name, 'type:', value_info.type, 'doc:', value_info.doc_string)
       type = value_info.type
-      print(type.sequence_type)
-
-
+      print(type.WhichOneof('value'))
+      print(getattr(type, type.WhichOneof('value')))
     #self.summary_internal(module)
 
   def load(self, src):
