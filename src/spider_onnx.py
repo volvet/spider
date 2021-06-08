@@ -88,6 +88,20 @@ class SpiderOnnx(SpiderBase):
       type = value_info.type
       print(type.WhichOneof('value'))
       print(getattr(type, type.WhichOneof('value')))
+
+    print('nodes:')
+    for n in graph.node:
+      name = n.name
+      op_type = n.op_type
+      print('name:', name, 'op_type:', op_type)
+      print('input:', n.input, 'output:', n.output)
+      #for attr in n.attribute:
+      #  print(attr)
+    print('output len:', len(graph.output))
+    for value_info in graph.output:
+      type = value_info.type
+      print(type.WhichOneof('value'))
+      print(getattr(type, type.WhichOneof('value')))
     #self.summary_internal(module)
 
   def load(self, src):
